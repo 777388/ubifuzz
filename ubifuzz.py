@@ -22,6 +22,6 @@ for i in range(256):
                         print(f"Reflected value found: {binary} with encoding: {enc} in url: {url}")
                         break
                     else:
-                        print(f"Reflected value not found: {binary} with encoding: {enc} in url: {url}"
+                        print(f"Reflected value not found: {binary} with encoding: {enc} in url: {url}")
                 except:
                     pass
