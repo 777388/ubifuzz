@@ -2,7 +2,7 @@ import urllib.parse
 import requests
 import sys
 
-print("python3 ubifuzz.py domain")
+print("python3 ubifuzz.py domain.com/?parameter=")
 combinations = []
 for i in range(256):
     binary = format(i, '08b')
@@ -19,7 +19,9 @@ for i in range(256):
                     url = sys.argv[1] + encoded # Append the encoded binary string to the URL
                     response = requests.get(url) # Send a GET request to the URL
                     if binary in response.text: # Check if the binary string is reflected in the response
-                        print(f"Reflected value found: {binary} with encoding: {enc}")
+                        print(f"Reflected value found: {binary} with encoding: {enc} in url: {url}")
                         break
+                    else:
+                        print(f"Reflected value not found: {binary} with encoding: {enc} in url: {url}"
                 except:
                     pass
