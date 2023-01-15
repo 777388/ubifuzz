@@ -11,7 +11,8 @@ for i in range(256):
         url = sys.argv[1] + encoded # Append the encoded binary string to the URL
         response = requests.get(url) # Send a GET request to the URL
         if binary in response.text: # Check if the binary string is reflected in the response
-            print(f"Reflected value found: {binary}")
+            print("")
+            print(f"Reflected value found: {binary} with encoding: URL in url: {url} with a length of {len(response.content)}")
         else:
             for enc in ['hex','base64','quopri','uu','rot13','url','ascii']:
                 try:
@@ -20,10 +21,32 @@ for i in range(256):
                     response = requests.get(url) # Send a GET request to the URL
                     if binary in response.text: # Check if the binary string is reflected in the response
                         print("")
-                        print(f"Reflected value found: {binary} with encoding: {enc} in url: {url} with a length of {response.content}")
+                        print(f"Reflected value found: {binary} with encoding: {enc} in url: {url} with a length of {len(response.content)}")
                         break
                     else:
                         print("")
-                        print(f"Reflected value not found: {binary} with encoding: {enc} in url: {url} with a length of {response.content}")
+                        print(f"Reflected value not found: {binary} in url: {url} with a length of {len(response.content)}")
+                except:
+                    pass
+    else:
+        encoded = urllib.parse.quote("11111111") # URL encode the binary string
+        url = sys.argv[1] + encoded # Append the encoded binary string to the URL
+        response = requests.get(url) # Send a GET request to the URL
+        if binary in response.text: # Check if the binary string is reflected in the response
+            print("")
+            print(f"Reflected value found: {binary} with encoding: URL in url: {url} with a length of {len(response.content)}")
+        else:
+            for enc in ['hex','base64','quopri','uu','rot13','url','ascii']:
+                try:
+                    encoded = eval("urllib.parse."+enc+"(binary)")
+                    url = sys.argv[1] + encoded # Append the encoded binary string to the URL
+                    response = requests.get(url) # Send a GET request to the URL
+                    if binary in response.text: # Check if the binary string is reflected in the response
+                        print("")
+                        print(f"Reflected value found: {binary} with encoding: {enc} in url: {url} with a length of {len(response.content)}")
+                        break
+                    else:
+                        print("")
+                        print(f"Reflected value not found: {binary} in url: {url} with a length of {len(response.content)}")
                 except:
                     pass
